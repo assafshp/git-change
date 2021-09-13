@@ -11,28 +11,14 @@ pipeline {
                 script {
                     myf = sh(returnStdout: true, script: 'git diff --dirstat=noncumulative --name-only master| grep  .')
                     String[] myfarr = myf.split()
-                    println myfarr.getClass()
                     myfl = myfarr.size()
-                    List<String> items = myf.split();
-                    println items.getClass()
-
-                    uniqu = items.unique()
-                    echo '--------------'
-                    echo "$myfarr"
-                    echo '--------------'
-                    echo "$myfl"
-                    echo '--------------'
                     List<String> products = []
                     for (int i = 0; i < myfarr.size(); i++) {
                         sh(returnStdout: true, script: "echo ${myfarr[i]}")
                         if (myfarr[i].contains("/")){
-                            echo myfarr[i].substring(0,myfarr[i].indexOf("/"))
                             products.add(myfarr[i].substring(0,myfarr[i].indexOf("/")))
-                            //build job: 'triggered-product', parameters: [string(name: 'PRODUCT', value: myfarr[i].substring(0,myfarr[i].indexOf("/")))]
-
                         }
                     }
-                    println products.getClass()
                     uniqueProducts = products.unique()
                     for (int t = 0; t < uniqueProducts.size(); t++) {
                         sh(returnStdout: true, script: "echo ${uniqueProducts[t]}")
