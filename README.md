@@ -1,5 +1,3 @@
-# git-change
-
 pipeline {
     agent any
     //agent { docker { image 'node:14-alpine' } }
@@ -27,8 +25,29 @@ pipeline {
                 sh 'git status'
                 script {
                     myf = sh(returnStdout: true, script: 'git diff --dirstat=noncumulative --name-only master| grep  .')
+                    // myfarr = myf.split(' ');
+                    myfarr = myf.split()
+                    myfl = myfarr.size()
+                    echo '--------------'
+                    echo "$myfarr"
+                    echo '--------------'
+                    echo "$myfl"
+                    echo '--------------'
+                    for (int i = 0; i < myfarr.size(); i++) {
+                        // sh "echo Hello ${myfarr[i]}"
+                        sh(returnStdout: true, script: 'echo aaa' )
+                    }
+                    //for( String values : myfarr )
+                    //    println('aaa' + values);
                 }
-                echo "changed folders: $myf"
+                
+                //echo "changed folders: $myf"
+                //echo "changed folders arr: $myfarr"
+                //int_for_loop(myfarr)
+                
+                // for file in $myf
+                //     do echo file
+                // done
             
                 //myf = sh(returnStdout: true, script: 'ls')
                 //echo 'myf=$myf'
@@ -44,9 +63,24 @@ pipeline {
                 //echo "Hello ${params.FOLDERS}"
             }
         }
+        // stage('Test 4') {
+        //     steps{
+        //         int_for_loop(myfarr) 
+        //     }
+           
+        // }
+        // stage('Test 2: loop of sh commands') {
+            
+        // }
     }
 }
 
 
+// def int_for_loop(list) {
+//     sh "echo Going to echo a list"
+//     for (int i = 0; i < list.size(); i++) {
+//         sh "echo Hello ${list[i]}"
+//     }
+// }
 
 
