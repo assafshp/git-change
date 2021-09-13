@@ -1,0 +1,14 @@
+pipeline {
+    agent any
+    parameters {
+        string(name: 'PRODUCT', defaultValue: '')
+    }
+    stages {
+        stage('Get product name') {
+            steps {
+                echo "Hello ${params.PRODUCT}"
+            }
+        }
+    }
+}
+
